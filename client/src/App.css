@@ -36,3 +36,41 @@
     transform: rotate(360deg);
   }
 }
+
+/* Login Styling */
+.login-container {
+  border-radius: 25px;
+  width: 60%;
+  border: 15px solid #1f9ba7;
+  padding: 30px;
+  margin: auto;
+  text-align: center;  
+}
+
+/* Image Styling */
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.container {
+    /* remember to set a width */
+    padding-top: 50px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.homepage-description {
+   padding-top: 50px;
+   margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
