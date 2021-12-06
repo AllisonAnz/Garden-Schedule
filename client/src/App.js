@@ -73,7 +73,7 @@ function App() {
         <Route path="/signup" element={<SignupForm onSignin={handleLogin}/>} />
         <Route path="/newplant" element={<NewPlant user={user}/>} />
         <Route path="/allplants" element={<AllPlantsList user={user} />} />
-        <Route path="/gardenplants" element={<GardenPlantsList gardenPlants={user.garden_plants} />} />
+        <Route path="/gardenplants" element={<GardenPlantsList />} />
 
       </Routes>
     </div>
