@@ -6,7 +6,9 @@ import NavigationBar from './components/nav/Navbar';
 import Home from './components/home/Home'
 import LoginForm from './components/forms/LoginForm'
 import SignupForm from './components/forms/SignupForm';
-
+import NewPlant from './containers/NewPlant';
+import AllPlantsList from './components/lists/AllPlantsList';
+import GardenPlantsList from './components/lists/GardenPlantsList';
 
 import './App.css'
 
@@ -69,6 +71,10 @@ function App() {
       <Routes>
         <Route index path="/" element={ loggedIn ? <Home user={user} loggedIn={loggedIn} /> : <LoginForm onLogin={handleLogin}/>} />
         <Route path="/signup" element={<SignupForm onSignin={handleLogin}/>} />
+        <Route path="/newplant" element={<NewPlant user={user}/>} />
+        <Route path="/allplants" element={<AllPlantsList user={user} />} />
+        <Route path="/gardenplants" element={<GardenPlantsList gardenPlants={user.garden_plants} />} />
+
       </Routes>
     </div>
   );
