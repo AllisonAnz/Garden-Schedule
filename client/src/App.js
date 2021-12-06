@@ -9,6 +9,7 @@ import SignupForm from './components/forms/SignupForm';
 import NewPlant from './containers/NewPlant';
 import AllPlantsList from './components/lists/AllPlantsList';
 import GardenPlantsList from './components/lists/GardenPlantsList';
+import GardenPage from './components/pages/GardenPage';
 
 import './App.css'
 
@@ -74,6 +75,7 @@ function App() {
         <Route path="/newplant" element={<NewPlant user={user}/>} />
         <Route path="/allplants" element={<AllPlantsList user={user} />} />
         <Route path="/gardenplants" element={<GardenPlantsList />} />
+        <Route path="/gardenplant/:id" element={< GardenPage />} ></Route>
 
       </Routes>
     </div>

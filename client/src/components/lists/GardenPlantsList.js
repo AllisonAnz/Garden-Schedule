@@ -25,16 +25,13 @@ if (loading) return (<div>...loading</div>)
 
     return (
         <div>
+            <div className="container" >
             <h1>Garden Plants</h1>
-            <div className="row row-cols-1 row-cols-md-2 g-4">
-                <div className="col">
-                    <div className="card-body">
-
+                <div className="card-columns">
                     {gardenPlants.map((plant) => {
-                        return <ListCards plant={plant} />
+                        return <ListCards key={plant.id} plant={plant} />
                     })}
 
-                    </div>
 
                 </div>
 

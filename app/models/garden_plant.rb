@@ -1,5 +1,5 @@
 class GardenPlant < ApplicationRecord
-    has_one :user
+    belongs_to :user, dependent: :destroy
 
     validates :name, presence: true
 end
