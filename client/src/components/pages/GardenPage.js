@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Tabs, Tab } from 'react-bootstrap'
+import { useNavigate } from 'react-router';
 //import EditPlant from './EditPlant';
 
 
@@ -12,6 +13,7 @@ const GardenPage = () => {
     const [isEditing, setEditing] = useState(false)
     const [isDeleted, setDeleted] = useState(false)
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         setLoading(true)
@@ -32,50 +34,47 @@ const GardenPage = () => {
     }, [params.id])
     //debugger
 
+    const RouteChange = () => {
+        navigate(`/gardenplants`)
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault()
-        gardenPlantFetchRequest()
+        EditRequest()
 
         setEditing(false)
     }
 
-    const gardenPlantFetchRequest = () => {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+    const EditRequest = () => {
+        const { life_cycle, color, garden_location, height, planting_season, bloom_season, planted, days_to_germinate, days_to_bloom, last_watered, last_fertilized, sun_requirement, description} = plant
+        var formData = JSON.stringify({
+            life_cycle, color, garden_location, height, planting_season, bloom_season, planted, days_to_germinate, days_to_bloom, last_watered, last_fertilized, sun_requirement, description
 
-        var raw = JSON.stringify({
+        })
 
-            "color": plant.plantable.color
-
-
-        });
-
+        const token = localStorage.getItem("jwt");
         var requestOptions = {
             method: 'PATCH',
-            headers: myHeaders,
-            body: raw,
+            headers: { 
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json" },
+            body: formData,
             redirect: 'manual'
         };
 
-        fetch(`http://localhost:3000/garden_plants/${params.id}`, requestOptions)
-            .then(response => response.text())
+
+        fetch(`http://localhost:3000/api/v1/garden_plants/${params.id}`, requestOptions)
+            .then(response => response.json())
             .then(result => console.log(result))
             .catch(error => console.log('error', error));
     }
 
     const handleChange = (e) => {
-        console.log(e.target.name)
-        setPlant({
-            ...plant, plantable: { ...plant.plantable, [e.target.name]: e.target.value }
-        })
+        //console.log(e.target.name)
+        setPlant(prevPlant => ({...prevPlant, [e.target.name]: e.target.value } ))
+    
     }
 
-    const handlePlantChange = (e) => {
-        setPlant({
-            ...plant, [e.target.name]: e.target.value
-        }
-        )
-    }
 
     const handleDelete = (e) => {
         e.preventDefault()
@@ -86,9 +85,10 @@ const GardenPage = () => {
             redirect: 'manual'
         };
 
-        fetch("http://localhost:3000/plants/6", requestOptions)
+        fetch(`http://localhost:3000/api/v1/garden_plants/${params.id}`, requestOptions)
             .then(response => response.json())
-            .then(setDeleted(true))
+            .then(setDeleted(true),
+                    RouteChange)
             .catch(error => console.log('error', error));
     }
 
@@ -96,7 +96,7 @@ const GardenPage = () => {
 
     if (plant) {
 
-        const { name, life_cycle, color, garden_location, height, planting_season, bloom_season, planted, days_to_germinate, days_to_bloom, last_watered, last_fertilized, sun_requirement, description } = plant
+        const { name, image, life_cycle, color, garden_location, height, planting_season, bloom_season, planted, days_to_germinate, days_to_bloom, last_watered, last_fertilized, sun_requirement, description } = plant
 
         const Template = (
             <div>
@@ -116,56 +116,9 @@ const GardenPage = () => {
             </div>
         )
 
-        const editingTemplate = (
-            <form onSubmit={handleSubmit}>
-                <dl className="row">
-                    <dt className="col-sm-3">Life Cycle</dt>
-                    <input type="text" className="col-sm-9" name="life_cycle" placeholder={life_cycle} onChange={handleChange}></input>
-
-
-                    <dt className="col-sm-3">Color</dt>
-                    <input type="text" className="col-sm-9" name="color" placeholder={color} onChange={handleChange}></input>
-
-                    <dt className="col-sm-3">Last Watered</dt>
-                    <input type="date" className="col-sm-9" name="last_watered" placeholder={last_watered} onChange={handlePlantChange}></input>
-
-    
-                </dl>
-                <button type="submit">Save</button>
-            </form>
-        )
-
-        const DeletedTemplate = (
-            <div>Plant Deleted!</div>
-        )
-
-
-        return (
+        const containerTemplate = (
             <div>
-                <br/>
-                <div className="delete">{isDeleted ? DeletedTemplate : ""}</div>
-                <div className="plantcontainer" id="plant-section">
-                    <div className="row">
-                        <div className="col-md-6">
-                            <img className="image-responsive" alt="Plant" src="https://watchandlearn.scholastic.com/content/dam/classroom-magazines/watchandlearn/videos/animals-and-plants/plants/what-are-plants-/What-Are-Plants.jpg" />
-                        </div>
-                        <div className="col-md-6">
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <h1>{name}</h1>
-                                </div>
-                            </div>
-                            <div>
-                                <div className="edit">{isEditing ? editingTemplate : Template}</div>
-                            </div>
-                            <div>
-                            </div>
-                            <button type="button" className="btn" onClick={handleDelete}> Delete</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="container">
+            <div className="container">
                     <div className="d-flex justify-content-center">
                         {description}
                     </div>
@@ -207,12 +160,116 @@ const GardenPage = () => {
                             </dl>
                         </Tab>
 
-                        <Tab eventKey="contact" title="Contact" >
-                            you did it!
+                        <Tab eventKey="comments" title="Comments" >
+                            puts comments here
                         </Tab>
                     </Tabs>
                 </div>
+            </div>
+        )
 
+        const editingContainerTemplate = (
+            <form onSubmit={handleSubmit}>
+                <div className="container">
+                    <div className="d-flex justify-content-center">
+                        {description}
+                    </div>
+                </div>
+
+                <div className="container">
+                    <Tabs defaultActiveKey="home" transition={false} id="noanim-tab-example" className="mb-3">
+                        <Tab eventKey="Info" title="Planting Info">
+                            <dl className="row">
+                                <dt className="col-sm-3">Location</dt>
+                                <input className="col-sm-9" type="text" name="garden_location" placeholder={garden_location} onChange={handleChange}></input>
+
+                                <dt className="col-sm-3">Planted</dt>
+                                <input className="col-sm-9" type="date" name="planted" placeholder={planted} onChange={handleChange}></input>
+
+                                <dt className="col-sm-3">Days To Germinate</dt>
+                                <input className="col-sm-9" type="text" name="days_to_germinate" placeholder={days_to_germinate} onChange={handleChange}></input>
+
+                                <dt className="col-sm-3">Days To Bloom</dt>
+                                <input className="col-sm-9" type="text" name="days_to_bloom" placeholder={days_to_bloom} onChange={handleChange}></input>
+
+                                <dt className="col-sm-3">Last Fertilized</dt>
+                                <input className="col-sm-9" type="date" name="last_fertilized" placeholder={last_fertilized} onChange={handleChange}></input>
+                            </dl>
+                            <button type="submit">Save</button>
+                        </Tab>
+                        <Tab eventKey="profile" title="Plant Info">
+                            <dl className="row">
+                                <dt className="col-sm-3">Planting Season</dt>
+                                <input className="col-sm-9" type="text" name="planting_season" placeholder={planting_season} onChange={handleChange}></input>
+
+                                <dt className="col-sm-3">Bloom Season</dt>
+                                <input className="col-sm-9" type="text" name="bloom_season" placeholder={bloom_season} onChange={handleChange}></input>
+
+                                <dt className="col-sm-3">Height</dt>
+                                <input className="col-sm-9" type="text" name={height} placeholder={height} onChange={handleChange}></input>
+
+                                <dt className="col-sm-3">Sun Requirement</dt>
+                                <input className="col-sm-9" type="text" name="sun_requirement" onChange={handleChange}></input>
+                            </dl>
+                            <button type="submit">Save</button>
+                        </Tab>
+                    </Tabs>
+                </div>
+            </form>
+        )
+
+        const editingTemplate = (
+            <form onSubmit={handleSubmit}>
+                <dl className="row">
+                    <dt className="col-sm-3">Life Cycle</dt>
+                    <input type="text" className="col-sm-9" name="life_cycle" placeholder={life_cycle} onChange={handleChange}></input>
+
+
+                    <dt className="col-sm-3">Color</dt>
+                    <input type="text" className="col-sm-9" name="color" placeholder={color} onChange={handleChange}></input>
+
+                    <dt className="col-sm-3">Last Watered</dt>
+                    <input type="date" className="col-sm-9" name="last_watered" placeholder={last_watered} onChange={handleChange}></input>
+
+                </dl>
+                <button type="submit">Save</button>
+            </form>
+        )
+
+        const DeletedTemplate = (
+            <div>Plant Deleted!</div>
+        )
+
+
+        return (
+            <div>
+                <br/>
+                <div className="delete">{isDeleted ? DeletedTemplate : ""}</div>
+
+                <div className="plantcontainer" id="plant-section">
+                    <div className="row">
+                        <div className="col-md-6">
+                            <img className="image-responsive" alt="Plant" src={image} />
+                        </div>
+
+                        <div className="col-md-6">
+                            <div className="row">
+                                <div className="col-md-12">
+                                    <h1>{name}</h1>
+                                </div>
+                            </div>
+                            <div>
+                                <div className="edit">{isEditing ? editingTemplate : Template}</div>
+                            </div>
+                            <div>
+                            </div>
+                            <button type="button" className="btn" onClick={handleDelete}> Delete</button>
+                        </div>
+                    </div>
+                </div>
+                <div className="edit">{isEditing ? editingContainerTemplate : containerTemplate}</div>
+
+                
             </div>
         )
     } else {
