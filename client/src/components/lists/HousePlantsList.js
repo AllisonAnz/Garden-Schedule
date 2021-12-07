@@ -1,10 +1,10 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import ListCards from './ListCards'
 
-const GardenPlantsList = () => {
-const [loading, setLoading] = useState(false)
-const [gardenPlants, setGardenPlants] = useState([])
-const [type, setType] = useState()
+const HousePlantsList = () => {
+    const [loading, setLoading] = useState(false)
+    const [housePlants, setHousePlants] = useState([])
+    const [type, setType] = useState("")
 
     useEffect(() => {
         setLoading(true)
@@ -15,22 +15,22 @@ const [type, setType] = useState()
             redirect: 'manual'
         };
 
-        fetch("http://localhost:3000/api/v1/garden_plants", requestOptions)
+        fetch("http://localhost:3000/api/v1/house_plants", requestOptions)
             .then((r) => r.json())
-            .then(setGardenPlants);
-            setType("garden")
+            .then(setHousePlants);
+            setType("house")
             setLoading(false)
-        }, 
-    []);
-   
-if (loading) return (<div>...loading</div>)
+    },
+        []);
+
+    if (loading) return (<div>...loading</div>)
 
     return (
         <div>
             <div className="container" >
-            <h1>Garden Plants</h1>
+                <h1>House Plants</h1>
                 <div className="card-columns">
-                    {gardenPlants.map((plant) => {
+                    {housePlants.map((plant) => {
                         return <ListCards key={plant.id} plant={plant} type={type} />
                     })}
 
@@ -42,4 +42,4 @@ if (loading) return (<div>...loading</div>)
     )
 }
 
-export default GardenPlantsList;
+export default HousePlantsList;

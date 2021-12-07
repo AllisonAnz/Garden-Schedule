@@ -1,8 +1,15 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router';
 
 const GardenPlantForm = () => {
     const [name, setName] = useState("")
     const [image, setImg] = useState("")
+    const navigate = useNavigate()
+
+    const routeChange = () => {
+        console.log("clicked")
+        navigate(`/gardenplants`)
+    }
 
     const handleSubmit=(e)=>{
         e.preventDefault()
@@ -21,7 +28,7 @@ const GardenPlantForm = () => {
         }).then((r) => {
             if (r.ok) {
                 r.json().then(() => {
-                    setName("");
+                   routeChange()
                 });
             } else {
                 r.json().then((error) => console.log(error));
@@ -31,7 +38,7 @@ const GardenPlantForm = () => {
     return (
             <div className="container-sm">
                 <form onSubmit={handleSubmit}>
-                    <h3>Create A New House Plant</h3>
+                    <h3>Create A New Garden Plant</h3>
 
                     <div className="form-group">
                         <label>Plant Name</label>

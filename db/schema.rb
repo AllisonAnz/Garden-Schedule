@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_12_05_214923) do
+ActiveRecord::Schema.define(version: 2021_12_07_020246) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,11 +37,44 @@ ActiveRecord::Schema.define(version: 2021_12_05_214923) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "house_plants", force: :cascade do |t|
+    t.string "name"
+    t.date "last_repotted"
+    t.string "soil"
+    t.integer "watering_schedule"
+    t.string "image"
+    t.date "last_watered"
+    t.date "last_fertilized"
+    t.string "sun_requirement"
+    t.text "description"
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
     t.string "first_name"
     t.string "last_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "veggie_plants", force: :cascade do |t|
+    t.string "name"
+    t.text "veggie_location"
+    t.string "planting_season"
+    t.string "harvest_season"
+    t.date "planted"
+    t.integer "days_to_germinate"
+    t.integer "days_to_harvest"
+    t.string "image"
+    t.date "last_watered"
+    t.date "last_fertilized"
+    t.string "sun_requirement"
+    t.text "description"
+    t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

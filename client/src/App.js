@@ -6,10 +6,17 @@ import NavigationBar from './components/nav/Navbar';
 import Home from './components/home/Home'
 import LoginForm from './components/forms/LoginForm'
 import SignupForm from './components/forms/SignupForm';
+
 import NewPlant from './containers/NewPlant';
+
 import AllPlantsList from './components/lists/AllPlantsList';
 import GardenPlantsList from './components/lists/GardenPlantsList';
+import HousePlantsList from './components/lists/HousePlantsList';
+import VeggiePlantsList from './components/lists/VeggiePlantsList';
+
 import GardenPage from './components/pages/GardenPage';
+import HousePage from './components/pages/HousePage';
+import VeggiePage from './components/pages/VeggiePage';
 
 import './App.css'
 
@@ -21,8 +28,8 @@ function App() {
   const navigate = useNavigate()
 
   const handleLogin = (user) => {
-    setLoggedIn(true)
     setUser(user)
+    setLoggedIn(true)
     navigate('/')
   }
 
@@ -57,12 +64,6 @@ function App() {
     navigate('/')
   }
 
-  //if (!user) return (
-  //       <Routes>
-  //        <Route index path="/" element={<LoginForm/>} />
-  //        <Route path="/signup" element={<SignupForm />} />
-  //       </Routes>
-  //        )
 
   if (loading) return (<div>...loading</div>)
 
@@ -75,8 +76,11 @@ function App() {
         <Route path="/newplant" element={<NewPlant user={user}/>} />
         <Route path="/allplants" element={<AllPlantsList user={user} />} />
         <Route path="/gardenplants" element={<GardenPlantsList />} />
-        <Route path="/gardenplant/:id" element={< GardenPage />} ></Route>
-
+        <Route path="/houseplants" element={<HousePlantsList />} />
+        <Route path="/veggieplants" element={<VeggiePlantsList />} />
+        <Route path="/gardenplant/:id" element={< GardenPage />} />
+        <Route path="/houseplant/:id" element={< HousePage />} />
+        <Route path="/veggieplant/:id" element={< VeggiePage />} />
       </Routes>
     </div>
   );

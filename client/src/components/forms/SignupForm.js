@@ -87,7 +87,7 @@ const SignupForm = ({onSignin}) => {
                             <div className="form-group">
                                 <label>Password: </label>
                                 <input
-                                    type="text"
+                                    type="password"
                                     id="password"
                                     value={password}
                                     onChange={(e) => { setPassword(e.target.value) }}
@@ -97,7 +97,7 @@ const SignupForm = ({onSignin}) => {
                             <div className="form-group">
                                 <label>Confirm Password : </label>
                                 <input
-                                    type="text"
+                                    type="password"
                                     id="passwordConfirmation"
                                     value={passwordConfirmation}
                                     onChange={(e) => { setPasswordConfirmation(e.target.value) }}

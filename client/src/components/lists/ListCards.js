@@ -2,17 +2,33 @@ import React from 'react'
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from 'react-router';
-import GardenPage from '../pages/GardenPage';
 
 
-const ListCards = ({plant}) => {
+const ListCards = ({plant, type}) => {
     const {name, image, description, id} = plant
+    
     const navigate = useNavigate()
 
-    const routeChange = () => {
-        console.log("clicked")
-        navigate(`/gardenplant/${id}`)
+    const routeChange = (e) => {
+        e.preventDefault()
+        console.log(e.target.value)
+        if (e.target.value === "garden") {
+           console.log("rerouting to garden...")
+           navigate(`/gardenplant/${id}`) 
+          
+       } else if (type === "house") {
+           console.log("rerouting to house..")
+            navigate(`/houseplant/${id}`)
+       
+       } else if (type === "veggie") {
+           console.log("rerouting to veggie")
+            navigate(`/veggieplant/${id}`)
+
+       } else {
+           return console.log("error")
+       }
     }
+    
 
     return (
             <Card style={{ width: '18rem' }}>
@@ -20,7 +36,7 @@ const ListCards = ({plant}) => {
                 <Card.Body>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text> {description}</Card.Text>
-                    <Button variant="info" onClick={routeChange}>Info </Button>
+                    <Button variant="info" value={type} onClick={routeChange}>Info </Button>
                 </Card.Body>
             </Card>
     )

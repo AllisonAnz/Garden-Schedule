@@ -1,12 +1,12 @@
 import React from 'react'
-import { Navbar, Form, Button, Nav, Offcanvas, NavDropdown, Container, FormControl } from 'react-bootstrap'
+import { Navbar, Button, Nav, Offcanvas, NavDropdown, Container } from 'react-bootstrap'
 
-const NavigationBar = ({onLogout, user, loggedIn}) => {
+const NavigationBar = ({onLogout, loggedIn}) => {
     return (
         <div>
             <Navbar bg="light" expand={false}>
                 <Container fluid>
-                    <Navbar.Brand href="#">Navbar Offcanvas</Navbar.Brand>
+                    <Navbar.Brand href="#">Welcome!</Navbar.Brand>
                     <Navbar.Toggle aria-controls="offcanvasNavbar" />
                     <Navbar.Offcanvas
                         id="offcanvasNavbar"
@@ -14,7 +14,7 @@ const NavigationBar = ({onLogout, user, loggedIn}) => {
                         placement="end"
                     >
                         <Offcanvas.Header closeButton>
-                            <Offcanvas.Title id="offcanvasNavbarLabel">Offcanvas</Offcanvas.Title>
+                            <Offcanvas.Title id="offcanvasNavbarLabel">Dashboard</Offcanvas.Title>
                         </Offcanvas.Header>
                         <Offcanvas.Body>
                             <Nav className="justify-content-end flex-grow-1 pe-3">
@@ -22,10 +22,12 @@ const NavigationBar = ({onLogout, user, loggedIn}) => {
                                 
                                 {loggedIn ? (
                                     <>
-                                    <Nav.Link href="/newplant">Link</Nav.Link>
+                                    <Nav.Link href="/newplant">Add New Plant</Nav.Link>
                                     <NavDropdown title="My Plants" id="offcanvasNavbarDropdown">
                                         <NavDropdown.Item href="/allplants">All Plants</NavDropdown.Item>
-                                        <NavDropdown.Item href="/gardenplants">GardenPlants</NavDropdown.Item>
+                                        <NavDropdown.Item href="/gardenplants">Garden Plants</NavDropdown.Item>
+                                        <NavDropdown.Item href="/houseplants"> House Plants</NavDropdown.Item>
+                                            <NavDropdown.Item href="/veggieplants"> Veggie Plants</NavDropdown.Item>
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item href="#action5">
                                             Something else here

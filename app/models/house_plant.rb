@@ -1,5 +1,4 @@
-class GardenPlant < ApplicationRecord
+class HousePlant < ApplicationRecord
     belongs_to :user
-
     validates :name, presence: true
 end
