@@ -3,7 +3,8 @@ class Api::V1::HousePlantsController < ApplicationController
     rescue_from ActiveRecord::RecordInvalid, with: :render_unprocessable_entity_response
 
     def index 
-        render json: HousePlant.all
+        plant = @user.house_plants.all 
+        render json: plant
     end
 
     def create 

@@ -11,7 +11,7 @@ const ListCards = ({plant, type}) => {
 
     const routeChange = (e) => {
         e.preventDefault()
-        console.log(e.target.value)
+        
         if (e.target.value === "garden") {
            console.log("rerouting to garden...")
            navigate(`/gardenplant/${id}`) 

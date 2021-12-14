@@ -12,4 +12,10 @@ class User < ApplicationRecord
      validates :first_name, :last_name, :password, presence: true 
      validates :password, length: {in: 6..20}
 
+     scope :most_house_plants, -> {joins(:house_plants).group(:user_id).order("COUNT(house_plants.id) DESC").limit(1)}
+
+     def self.most_plants 
+        self.all.max_by{ |u| u.house_plants.length }
+    end
+
 end

@@ -3,7 +3,7 @@ import GardenPlantForm from '../components/forms/GardenPlantForm'
 import VeggiePlantForm from '../components/forms/VeggiePlantForm'
 import HousePlantForm from '../components/forms/HousePlantForm'
 
-const NewPlant = ({user}) => {
+const NewPlant = ({user, loggedIn}) => {
     const [type, setType] = useState("")
     const [loading, setLoading] = useState(true)
 
@@ -12,6 +12,8 @@ const NewPlant = ({user}) => {
         setType(e.target.value)
         setLoading(false)
     }
+
+    if (!loggedIn) return (<div>You Must be logged In to view this page</div>)
     return (
         <div>
             <h1>New Plant Page</h1>

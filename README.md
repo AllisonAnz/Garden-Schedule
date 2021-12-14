@@ -1,24 +1,47 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## About
 
-Things you may want to cover:
+Garden Planner is your one stop shop for keep track of all you garden plants! Keep track of watering schedules, plant care, planting schedules and so much more!
 
-* Ruby version
+This Application was built using 
 
-* System dependencies
+    Backend: Ruby on Rails: Ruby v2.7 
+    Frontend: React v17.0
+    Styling: Bootstrap v5.1
 
-* Configuration
+## Setup
 
-* Database creation
+Clone the repo
 
-* Database initialization
+ ```console
+ git clone https://github.com/AllisonAnz/rails-garden-planner-app.git
+ ```
 
-* How to run the test suite
+To download the dependencies for the frontend and backend, run:
 
-* Services (job queues, cache servers, search engines, etc.)
+```console
+$ bundle install
+$ npm install --prefix client
+```
 
-* Deployment instructions
+You can run your database:
 
-* ...
+```console
+$ rails db:migrate db:seed
+```
+You can run your Rails API on [`localhost:3000`](http://localhost:3000) by running:
+
+```console
+$ rails s
+```
+
+You can run your React app on [`localhost:4000`](http://localhost:4000) by running:
+
+```console
+$ npm start --prefix client
+```
+
+
+
+

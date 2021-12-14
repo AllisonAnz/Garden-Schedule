@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useNavigate} from 'react-router'
+import { useNavigate } from 'react-router'
+
 
 import NavigationBar from './components/nav/Navbar';
 import Home from './components/home/Home'
@@ -28,9 +29,12 @@ function App() {
   const navigate = useNavigate()
 
   const handleLogin = (user) => {
-    setUser(user)
+    if (user) {setUser(user)
     setLoggedIn(true)
-    navigate('/')
+    navigate('/')}
+    else {
+      console.log("invalid Login")
+    }
   }
 
   useEffect(() => {
@@ -67,17 +71,19 @@ function App() {
 
   if (loading) return (<div>...loading</div>)
 
+  
+
   return (
     <div className="App">
       <NavigationBar user={user} loggedIn={loggedIn} onLogout={handleLogout}/>
       <Routes>
         <Route index path="/" element={ loggedIn ? <Home user={user} loggedIn={loggedIn} /> : <LoginForm onLogin={handleLogin}/>} />
         <Route path="/signup" element={<SignupForm onSignin={handleLogin}/>} />
-        <Route path="/newplant" element={<NewPlant user={user}/>} />
+        <Route path="/newplant" element={<NewPlant user={user} loggedIn={loggedIn}/>} />
         <Route path="/allplants" element={<AllPlantsList user={user} />} />
-        <Route path="/gardenplants" element={<GardenPlantsList />} />
-        <Route path="/houseplants" element={<HousePlantsList />} />
-        <Route path="/veggieplants" element={<VeggiePlantsList />} />
+        <Route path="/gardenplants" element={<GardenPlantsList loggedIn={loggedIn} />} />
+        <Route path="/houseplants" element={<HousePlantsList loggedIn={loggedIn} />} />
+        <Route path="/veggieplants" element={<VeggiePlantsList loggedIn={loggedIn}/>} />
         <Route path="/gardenplant/:id" element={< GardenPage />} />
         <Route path="/houseplant/:id" element={< HousePage />} />
         <Route path="/veggieplant/:id" element={< VeggiePage />} />

@@ -7,7 +7,6 @@ const VeggiePlantForm = () => {
     const navigate = useNavigate()
 
     const routeChange = () => {
-        console.log("clicked")
         navigate(`/veggieplants`)
     }
 

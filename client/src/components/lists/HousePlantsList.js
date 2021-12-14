@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import ListCards from './ListCards'
 
-const HousePlantsList = () => {
+const HousePlantsList = ({loggedIn}) => {
     const [loading, setLoading] = useState(false)
     const [housePlants, setHousePlants] = useState([])
     const [type, setType] = useState("")
 
     useEffect(() => {
+        let mounted = true
+
         setLoading(true)
         const token = localStorage.getItem("jwt");
         var requestOptions = {
@@ -17,13 +19,19 @@ const HousePlantsList = () => {
 
         fetch("http://localhost:3000/api/v1/house_plants", requestOptions)
             .then((r) => r.json())
-            .then(setHousePlants);
-            setType("house")
-            setLoading(false)
+            .then((data) => {
+                if (mounted) {
+                    setHousePlants(data)
+                }
+            });
+        setType("house")
+        setLoading(false)
+        return () => { mounted = false }
     },
         []);
 
     if (loading) return (<div>...loading</div>)
+    if (!loggedIn) return (<div>You Must be logged In to view this page</div>)
 
     return (
         <div>
