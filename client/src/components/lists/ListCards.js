@@ -33,7 +33,7 @@ const ListCards = ({plant, type}) => {
 
     return (
        <>
-            <Col className="py-3 px-md-5" sm="6">
+            <Col className="py-6 px-md-10" sm="6">
                 <Card > 
                     <Card.Img src={image} variant="top" alt="plant" />
                     <Card.Body>

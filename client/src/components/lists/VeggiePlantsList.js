@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ListCards from './ListCards'
+import { Container, Row } from "react-bootstrap";
 
 const VeggiePlantsList = ({loggedIn}) => {
     const [loading, setLoading] = useState(false)
@@ -34,20 +35,17 @@ const VeggiePlantsList = ({loggedIn}) => {
     if (!loggedIn) return (<div>You Must be logged In to view this page</div>)
 
     return (
-        <div>
-            <div className="container" >
-                <h1>Veggie Plants</h1>
-                <div className="card-columns">
+        <div className="container">
+            <Container>
+                <Row sm={6} md={4}>
                     {veggiePlants.map((plant) => {
                         return <ListCards key={plant.id} plant={plant} type={type} />
                     })}
-
-
-                </div>
-
-            </div>
+                </Row>
+            </Container>
         </div>
     )
 }
+
 
 export default VeggiePlantsList;
