@@ -2,7 +2,7 @@
 
 ## About
 
-Garden Planner is your one stop shop for keep track of all you garden plants! Keep track of watering schedules, plant care, planting schedules and so much more!
+This Garden Planner is your one stop shop for keeping track of all things plants realted! Keep track of watering schedules, plant care, seed schedules and so much more!
 
 This Application was built using 
 

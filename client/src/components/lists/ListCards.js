@@ -2,6 +2,7 @@ import React from 'react'
 import Card from "react-bootstrap/Card";
 import Button from "react-bootstrap/Button";
 import { useNavigate } from 'react-router';
+import { Container, Row, Col } from "react-bootstrap";
 
 
 const ListCards = ({plant, type}) => {
@@ -31,15 +32,29 @@ const ListCards = ({plant, type}) => {
     
 
     return (
-            <Card style={{ width: '18rem' }}>
-                <Card.Img src={image} variant="top" alt="plant" />
-                <Card.Body>
+       <>
+            <Col className="py-3 px-md-5" sm="6">
+                <Card > 
+                    <Card.Img src={image} variant="top" alt="plant" />
+                    <Card.Body>
                     <Card.Title>{name}</Card.Title>
                     <Card.Text> {description}</Card.Text>
                     <Button variant="info" value={type} onClick={routeChange}>Info </Button>
                 </Card.Body>
-            </Card>
+
+                </Card>
+            </Col>
+       </>
     )
 }
 
 export default ListCards
+
+//    < Card style = {{ width: '18rem' }}>
+//                <Card.Img src={image} variant="top" alt="plant" />
+//                <Card.Body>
+//                    <Card.Title>{name}</Card.Title>
+//                    <Card.Text> {description}</Card.Text>
+//                    <Button variant="info" value={type} onClick={routeChange}>Info </Button>
+//                </Card.Body>
+//            </Card >
